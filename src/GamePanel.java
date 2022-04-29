@@ -27,6 +27,27 @@ public class GamePanel extends JPanel implements Runnable {
 
     @Override
     public void run() {
+        while (gameThread!=null){
+            //System.out.println("Pętla działa.");
+            update();
+            repaint();
+        }
 
+    }
+
+    public void update() {
+
+    }
+
+    public void paintComponent(Graphics g){
+        super.paintComponent(g);
+
+        Graphics2D graphics2D = (Graphics2D) g;
+
+        graphics2D.setColor(Color.white);
+
+        graphics2D.fillRect(100,100,tileSize,tileSize);
+
+        graphics2D.dispose();
     }
 }
