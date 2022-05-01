@@ -19,6 +19,7 @@ public class Main {
         game.setLocationRelativeTo(null);
         game.setVisible(true);
 
+        gamePanel.setupGame();
         gamePanel.startGameThread();
     }
 }
