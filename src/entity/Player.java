@@ -109,20 +109,29 @@ public class Player extends Entity{
         }
 
     }
+
+    //Definiuje co się stanie z obiektem po kolizji
     public void pickUpObject(int i){
         if(i != 999){
             String objectName = gamePanel.object[i].name;
             switch (objectName){
                 case "Key":
+                    gamePanel.playSoundEffect(1);
                     hasKey++;
                     gamePanel.object[i] = null;
                     System.out.println("Key: " + hasKey);
                     break;
                 case"Door":
+                    gamePanel.playSoundEffect(3);
                     if(hasKey > 0){
                         gamePanel.object[i] = null;
                         hasKey--;
                     }
+                    break;
+                case"Boots":
+                    gamePanel.playSoundEffect(2);
+                    speed += 1;
+                    gamePanel.object[i]=null;
                     break;
             }
         }
