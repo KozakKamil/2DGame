@@ -31,6 +31,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     public CollisionCheck collisionCheck = new CollisionCheck(this);
     public AssetSetter assetSetter = new AssetSetter(this);
+    public UI ui = new UI(this);
     Thread gameThread;
 
     //gracz oraz objekt
@@ -102,6 +103,10 @@ public class GamePanel extends JPanel implements Runnable {
         tileManager.draw(graphics2D);
         //Gracz
         player.draw(graphics2D);
+
+        //UI
+        ui.draw(graphics2D);
+
         //Obiekt
         for(int i = 0; i < object.length; i++){
             if(object[i] != null){
