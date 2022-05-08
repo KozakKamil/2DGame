@@ -15,6 +15,8 @@ public class Player extends Entity{
 
     public final int screenX;
     public final int screenY;
+    int hasKey = 0;
+
 
     public Player(GamePanel gamePanel, KeyHandler keyHandler){
         this.gamePanel = gamePanel;
@@ -24,6 +26,8 @@ public class Player extends Entity{
         screenY = gamePanel.screenHeight/2 - (gamePanel.tileSize);
 
         solidArea = new Rectangle(8, 16, 25, 25);
+        solidAreaDefaultX = solidArea.x;
+        solidAreaDefaultY = solidArea.y;
 
         setDefaultValues();
         getPlayerImage();
@@ -71,6 +75,10 @@ public class Player extends Entity{
             collisionOn = false;
             gamePanel.collisionCheck.CheckTile(this);
 
+            //sprawdzanie kolizji z obiektem
+            int objIndex = gamePanel.collisionCheck.checkObject(this,true);
+            pickUpObject(objIndex);
+
             //collisionOn == false - gracz może się ruszać
             if(collisionOn == false){
                 switch (direction){
@@ -100,6 +108,24 @@ public class Player extends Entity{
             }
         }
 
+    }
+    public void pickUpObject(int i){
+        if(i != 999){
+            String objectName = gamePanel.object[i].name;
+            switch (objectName){
+                case "Key":
+                    hasKey++;
+                    gamePanel.object[i] = null;
+                    System.out.println("Key: " + hasKey);
+                    break;
+                case"Door":
+                    if(hasKey > 0){
+                        gamePanel.object[i] = null;
+                        hasKey--;
+                    }
+                    break;
+            }
+        }
     }
     public void draw(Graphics2D graphics2D){
         /*graphics2D.setColor(Color.white);
